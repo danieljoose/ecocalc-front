@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled, { css } from '@emotion/native'
 import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native'
+import {Picker} from '@react-native-picker/picker';
+import PickerCustom from '../../components/PickerCustom';
 import auth from "../../services/auth"
 import EcoCalc from "../../assets/ecocalc.svg";
 import Pig from "../../assets/pig.svg";
@@ -23,20 +25,27 @@ const Dashboard = ({ navigation }) => {
         }
     })
 
+    const data = [
+        { label: 'Label One', value: '1' },
+        { label: 'Label Two', value: '2' },
+        { label: 'Label Tri', value: '3' },
+    ]
+
     return (
         <View style={{alignItems: 'center', flex: 1, paddingHorizontal: 30 }}>
-            <Subtitle style={{fontSize: 15, marginTop: 10}}>
+            <Subtitle style={{fontSize: 15, marginTop: 10, marginBottom: 10}}>
                 Visualize o total gasto em cada mês e quanto
                 você poupou em relação ao mês anterior.
                 Clique e acesse os detalhes de cada mês.</Subtitle>
-                {/* <Picker
+                <PickerCustom
                     selectedValue={selectedValue}
-                    style={{ height: 50, width: 150 }}
-                    onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-                >
-                    <Picker.Item label="Java" value="java" />
-                    <Picker.Item label="JavaScript" value="js" />
-                </Picker> */}
+                    onChange={setSelectedValue}
+                    data={data}
+                />
+                <Subtitle style={{fontSize: 15, marginTop: 10}}>
+                Visualize o total gasto em cada mês e quanto
+                você poupou em relação ao mês anterior.
+                Clique e acesse os detalhes de cada mês.</Subtitle>
 
             <PressableButton
                 onPress={async ()=> await logout()}
