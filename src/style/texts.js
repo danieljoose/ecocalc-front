@@ -8,6 +8,7 @@ export const Subtitle = styled.Text`
         font-style: normal;
         font-weight: 400;
         color: #557D76;
+        text-align: center;
     }
 `;
 

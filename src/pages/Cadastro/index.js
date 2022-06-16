@@ -48,7 +48,7 @@ const Cadastro = ({ navigation }) =>{
 
     const [cadastrarUsuario] = useMutation(CADASTRAR_USUARIO, {
         onCompleted: (e) =>{
-            console.log(e)
+            navigation.navigate('Login')
         }
     })
 

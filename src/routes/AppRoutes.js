@@ -17,7 +17,7 @@ function AppRoutes(){
             screenOptions={{
                 headerShown: false
             }}
-            initialRouteName="InitialPage">
+            initialRouteName="Login">
             <Stack.Screen name="InitialPage" component={InitialPage} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Cadastro" component={Cadastro} />
