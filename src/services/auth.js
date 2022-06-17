@@ -37,7 +37,6 @@ const login = async (token) => {
 };
 
 const isLogged = async () => {
-  console.log(Boolean(await AsyncStorage.getItem(`${key}/token`)))
   return Boolean(await AsyncStorage.getItem(`${key}/token`));
 }
 

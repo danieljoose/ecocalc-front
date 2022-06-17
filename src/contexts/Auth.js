@@ -9,7 +9,7 @@ export const AuthProvider = ({children}) => {
     const REACT_APP_GRAPHQL_URL = 'http://192.168.15.9:8080/graphql';
     
     const [ user, setUser ] = useState({
-      auth: true,
+      auth: Boolean(getToken),
       id: null,
       email: null,
       nome: null,

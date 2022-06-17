@@ -42,8 +42,6 @@ const Login = ({ navigation }) => {
             console.log(e.signin.token)
           // navigation.navigate('Dashboard')
         await login(e.signin.token)
-        console.log('logou?')
-        console.log(await isLogged())
         
         
         //   const redirectPath = query.get("redirectPath");

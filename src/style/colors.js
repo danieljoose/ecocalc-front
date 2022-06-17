@@ -3,5 +3,6 @@ export default {
     secondBlue: '#78CDBE',
     orange: '#FF964A',
     red: '#D23C3C',
-    thirdBlue: '#44776E'
+    thirdBlue: '#44776E',
+    green: '#13B423'
 }

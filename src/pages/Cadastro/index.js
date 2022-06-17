@@ -38,11 +38,8 @@ const Cadastro = ({ navigation }) =>{
             id: 1
         },
         onCompleted: (e) => {
-            console.log(e)
         },
         onError: (e)=>{
-            console.log('oaoaa')
-            console.log(e)
         }
     })
 

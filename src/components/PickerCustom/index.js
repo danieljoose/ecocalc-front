@@ -31,7 +31,7 @@ const PickerCustom = ({ data, selectedValue, onChange, width }) => {
           onValueChange={(itemValue, itemIndex) => onChange(itemValue)}
         >
             {data.map((elem) =>(
-                <Picker.Item label={elem.label} value={elem.value} />
+                <Picker.Item label={elem.label} value={elem.value} key={elem.value} />
             ))}
         </Picker>
       </View>

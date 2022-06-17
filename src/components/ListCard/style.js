@@ -1,0 +1,95 @@
+import styled from 'styled-components/native';
+import colors from '../../style/colors';
+import {Text, View} from 'react-native';
+import Arrow from "../../assets/arrow_left.svg"
+
+export const Subtitle = styled.Text`
+    &&{
+        font-family: Montserrat-Medium;
+        font-size: 17px;
+        font-style: normal;
+        font-weight: 400;
+        color: #557D76;
+        text-align: center;
+    }
+`;
+
+export const ArrowLeft = styled(Arrow)`
+    position: absolute;
+    margin-right: 15px;
+    margin-top: 15px;
+    right: 0;
+`
+
+export const Card = styled.View`
+    background: ${colors.firstBlue};
+    width: 90%;
+    height: 120px;
+    border-radius: 10px;
+    margin-top: 15px;
+`
+
+export const FirstCard = styled.View`
+    background: ${colors.thirdBlue};
+    width: 100%;
+    height: 120px;
+    border-radius: 10px;
+    margin-top: 15px;
+    
+`
+
+export const Percentage = styled.View`
+    background: white;
+    width: 72px;
+    height: 32px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    margin-right: 15px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+`
+export const PercentageText = styled.Text`
+    font-family: Montserrat-Bold;
+    font-size: 16px;
+    font-style: normal;
+    color: ${props =>
+        props.color < 0 ? colors.red : colors.green}
+    margin-left: 1px;
+`
+
+export const MoneyText = styled.Text`
+    font-family: Montserrat-Bold;
+    font-size: 25px;
+    font-style: normal;
+    margin-top: 15px;
+    margin-left: 25px;
+    color: white;
+`
+export const CentsText = styled.Text`
+    font-family: Montserrat-Bold;
+    font-size: 15px;
+    font-style: normal;
+    margin-top: 25px;
+    color: white;
+`
+export const DespesasText = styled.Text`
+    font-family: Montserrat-Regular;
+    font-size: 13px;
+    font-style: normal;
+    margin-left: 25px;
+    margin-top: 5px;
+    color: white;
+`
+
+export const MonthText = styled.Text`
+    margin-top: 15px;
+    margin-left: 25px;
+    font-family: Montserrat-Medium;
+    font-size: 15px;
+    font-style: normal;
+    color: white;
+`

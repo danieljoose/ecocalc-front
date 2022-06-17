@@ -9,7 +9,6 @@ const Routes = () => {
     const { user } = useContext(AuthContext);
     const [ isLogged, setIsLogged ] = useState()
 
-    console.log(user)
 
     return user.auth ? <AuthRoutes/> : <AppRoutes/>    
 }
