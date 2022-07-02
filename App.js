@@ -41,7 +41,6 @@ const client = new ApolloClient({
 
 
 export default function App(){
-
   return(
     <ApolloProvider client={client}>      
         <View style={{flex: 1}}>

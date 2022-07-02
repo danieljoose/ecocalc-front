@@ -18,6 +18,7 @@ const Dashboard = ({ navigation }) => {
     const { logout, user, signed, credentialsUser, getToken  } = useContext(AuthContext)
     const [selectedValue, setSelectedValue] = useState("java");
 
+
     // useEffect(()=>{
     //     console.log('q ' + signed);
     //     console.log('q ' + (async () => getToken)());
@@ -30,9 +31,9 @@ const Dashboard = ({ navigation }) => {
     // }, [])
 
     const data = [
-        { label: 'Despesas Totais', value: '1' },
-        { label: 'Label Two', value: '2' },
-        { label: 'Label Tri', value: '3' },
+        { nome: 'Despesas Totais', id: '1' },
+        { nome: 'Label Two', id: '2' },
+        { nome: 'Label Tri', id: '3' },
     ]
 
     return (
@@ -47,6 +48,7 @@ const Dashboard = ({ navigation }) => {
                 selectedValue={selectedValue}
                 onChange={setSelectedValue}
                 data={data}
+                width={350}
             />
 
             <ListCard/>

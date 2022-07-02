@@ -8,9 +8,11 @@ import { Paper, Drawer } from 'react-native-paper'
 import Logout from "../../assets/logout.svg";
 import Logo from "../../assets/logo-no-name.svg";
 import AuthContext from '../../contexts/Auth';
+import { NavigationEvents } from "react-navigation";
 
 const DrawerContent = (props) => {
-    const { logout, user  } = useContext(AuthContext)
+    const { logout, user } = useContext(AuthContext)
+
     return (
         <View style={{flex: 1}}>
             <DrawerContentScrollView {...props}>

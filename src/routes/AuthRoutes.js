@@ -2,8 +2,13 @@ import React from 'react';
 import {createDrawerNavigator } from '@react-navigation/drawer';
 import Logo from "../assets/logo-no-name.svg";
 import DashboardIcon from "../assets/dashboard.svg";
+import AddResidenciaIcon from "../assets/icon-add-residencia.svg";
+import AddPessoaIcon from "../assets/icon-add-pessoa.svg";
 import Dashboard from '../pages/Dashboard';
 import Pessoas from '../pages/Pessoas';
+import AddResidencia from '../pages/AddResidencia';
+import AddPessoa from '../pages/AddPessoa';
+import AddPessoaSuccess from '../pages/AddPessoa/AddPessoaSuccess';
 import DrawerContent from '../pages/DrawerContent';
 import { useWindowDimensions } from 'react-native';
 
@@ -16,6 +21,7 @@ function AuthRoutes(){
         <Drawer.Navigator
           drawerContent={props => <DrawerContent {...props}/>}
           screenOptions={{
+            unmountOnBlur: true,
             drawerLabelStyle: {
               marginLeft: -20,
               color: 'white', 
@@ -44,13 +50,25 @@ function AuthRoutes(){
                 drawerIcon: config => <DashboardIcon/>
               }}         
             /> 
-             <Drawer.Screen
-             name="Pessoas"
-             component={Pessoas}   
+            <Drawer.Screen
+             name="Adicionar residência"
+             component={AddResidencia}  
              options={{
-                drawerIcon: config => <DashboardIcon/>
+                drawerIcon: config => <AddResidenciaIcon/>
               }}         
             /> 
+            <Drawer.Screen
+             name="Adicionar pessoa"
+             component={AddPessoa}   
+             options={{
+                drawerIcon: config => <AddPessoaIcon/>
+              }}         
+            /> 
+            <Drawer.Screen name="AddPessoaSuccess" component={AddPessoaSuccess}
+              options={{
+                drawerItemStyle: { display: 'none' }
+              }}
+            />
         </Drawer.Navigator>
     )
 }

@@ -6,11 +6,22 @@ import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 
 
 const Routes = () => {
-    const { user } = useContext(AuthContext);
-    const [ isLogged, setIsLogged ] = useState()
+    const { user, isLogged, credentialsUser, getToken } = useContext(AuthContext);
+    const [logado, setLogado] = useState()
 
+    useEffect(()=>{
+      (async ()=> {
+        setLogado(await getToken())
+      })()
+    }, [getToken])
 
-    return user.auth ? <AuthRoutes/> : <AppRoutes/>    
+    useEffect(()=>{
+      credentialsUser(logado)
+    }, [logado])
+
+    return (<>
+        {logado ? (<AuthRoutes/>) : (<AppRoutes/>)}
+    </>)
 }
 
 export default Routes

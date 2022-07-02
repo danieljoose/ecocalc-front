@@ -9,14 +9,24 @@ export const AuthProvider = ({children}) => {
     const REACT_APP_GRAPHQL_URL = 'http://192.168.15.9:8080/graphql';
     
     const [ user, setUser ] = useState({
-      auth: Boolean(getToken),
+      auth: Boolean(getToken) ? Boolean(getToken) : true,
       id: null,
       email: null,
       nome: null,
     })
 
-    const credentialsUser = async () => {
-      const token = await AsyncStorage.getItem(`${key}/token`);
+    const credentialsUser = (token) => {
+      if(!token){
+        setUser({
+          auth: false,
+          id: null,
+          email: null,
+          nome: null,
+        })
+        
+        return
+      }
+      
       const { id, email, nome } = jwt_decode(token);
 
       setUser({
@@ -26,6 +36,7 @@ export const AuthProvider = ({children}) => {
         nome
       })
     }
+
     const login = async (token) => {
       const { id, email, nome } = jwt_decode(token);
     
@@ -64,7 +75,6 @@ export const AuthProvider = ({children}) => {
     };
     
     const isLogged = async () => {
-      console.log(Boolean(await AsyncStorage.getItem(`${key}/token`)))
       return Boolean(await AsyncStorage.getItem(`${key}/token`));
     }
     
@@ -78,16 +88,16 @@ export const AuthProvider = ({children}) => {
         email: null,
         nome: null
       })
-      console.log('Logout ' + Boolean(await AsyncStorage.getItem(`${key}/token`)))
       return true
     };
     
     const getToken = async () => {
-      return await AsyncStorage.getItem(`${key}/token`);
+      const token = await AsyncStorage.getItem(`${key}/token`)
+      return token;
     };
     
     const getId = async () => {
-      return AsyncStorage.getItem(`${key}/id`);
+      return await AsyncStorage.getItem(`${key}/id`);
     };
     
     const getEmail = async () => {

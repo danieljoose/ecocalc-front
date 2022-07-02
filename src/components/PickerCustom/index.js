@@ -4,12 +4,12 @@ import {Picker} from '@react-native-picker/picker';
 import colors from "../../style/colors";
 
 
-const PickerCustom = ({ data, selectedValue, onChange, width }) => {
+const PickerCustom = ({ data, selectedValue, onChange, width, fonte, color }) => {
     return (
       <View style={{
         alignItems: "center",
         maxWidth: "100%",
-        backgroundColor: 'white',
+        backgroundColor: color || 'white',
         marginVertical: 10,
         shadowColor: "#000",
         shadowOffset: {
@@ -21,17 +21,22 @@ const PickerCustom = ({ data, selectedValue, onChange, width }) => {
         borderRadius: 40,
 
         elevation: 29,
+        fontSize: 10
       }}>
         <Picker
           selectedValue={selectedValue}
+          placeHolder="opa"
           style={{  
-            width: width ? width : 350, 
+            width: width || '100%', 
             color: colors.thirdBlue,
+            fontSize: 20
            }}
+           mode="dropdown"
           onValueChange={(itemValue, itemIndex) => onChange(itemValue)}
         >
+            <Picker.Item style={{fontSize: fonte || 16}} label={'Selecione uma opção'} />
             {data.map((elem) =>(
-                <Picker.Item label={elem.label} value={elem.value} key={elem.value} />
+                <Picker.Item style={{fontSize: fonte || 16}} label={elem.nome} value={elem.id} key={elem.id} />
             ))}
         </Picker>
       </View>

@@ -5,10 +5,9 @@ const key = "@ecocalc";
 const REACT_APP_GRAPHQL_URL = 'http://192.168.15.9:8080/graphql';
 
 const login = async (token) => {
-  console.log("oi?")
   const { id, email } = jwt_decode(token);
 
-  console.log( email)
+
 
   await AsyncStorage.setItem(`${key}/token`, token);
   await AsyncStorage.setItem(`${key}/id`, JSON.stringify(id));

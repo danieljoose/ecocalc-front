@@ -23,7 +23,6 @@ const Login = ({ navigation }) => {
     const client = useApolloClient();
     const { login, isLogged } = useContext(AuthContext)
     const { register, setValue, handleSubmit } = useForm()
-
     const [signIn, { loading }] = useMutation(SIGN_IN, {
         onError: (err) => {
           if (/bad_credentials/.exec(err.message)) {
@@ -39,9 +38,9 @@ const Login = ({ navigation }) => {
         },
         onCompleted: async (e) => {
 
-            console.log(e.signin.token)
+
           // navigation.navigate('Dashboard')
-        await login(e.signin.token)
+            await login(e.signin.token)
         
         
         //   const redirectPath = query.get("redirectPath");
