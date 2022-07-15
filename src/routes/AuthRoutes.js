@@ -4,8 +4,11 @@ import Logo from "../assets/logo-no-name.svg";
 import DashboardIcon from "../assets/dashboard.svg";
 import AddResidenciaIcon from "../assets/icon-add-residencia.svg";
 import AddPessoaIcon from "../assets/icon-add-pessoa.svg";
+import PessoaIcon from "../assets/person-icon.svg";
+import DespesaIcon from "../assets/despesa.svg";
 import Dashboard from '../pages/Dashboard';
 import Pessoas from '../pages/Pessoas';
+import Despesa from '../pages/Despesa';
 import AddResidencia from '../pages/AddResidencia';
 import AddPessoa from '../pages/AddPessoa';
 import AddPessoaSuccess from '../pages/AddPessoa/AddPessoaSuccess';
@@ -51,6 +54,13 @@ function AuthRoutes(){
               }}         
             /> 
             <Drawer.Screen
+             name="Adicionar despesa"
+             component={Despesa}   
+             options={{
+                drawerIcon: config => <DespesaIcon/>
+              }}         
+            /> 
+            <Drawer.Screen
              name="Adicionar residência"
              component={AddResidencia}  
              options={{
@@ -64,7 +74,14 @@ function AuthRoutes(){
                 drawerIcon: config => <AddPessoaIcon/>
               }}         
             /> 
-            <Drawer.Screen name="AddPessoaSuccess" component={AddPessoaSuccess}
+            <Drawer.Screen
+             name="Pessoas"
+             component={Pessoas}   
+             options={{
+                drawerIcon: config => <PessoaIcon/>
+              }}         
+            /> 
+            <Drawer.Screen name="Adicionar pessoa " component={AddPessoaSuccess}
               options={{
                 drawerItemStyle: { display: 'none' }
               }}

@@ -38,14 +38,15 @@ const AddPessoa = ({ navigation }) => {
       variables: {
         usuarioId: user.id
       },
-      onCompleted: (e)=>{
-        console.log(e.getResidencias[0]?.id)
-        setSelectedValue(e.getResidencias[0]?.id)
-      }
+      // onCompleted: (e)=>{
+      //   // console.log(e.getResidencias[0]?.id)
+      //   setSelectedValue(e.getResidencias[0]?.id)
+      //   // console.log(selectedValue)
+      // }
     })
 
 
-    console.log('ai')
+    
     const [cadastrarPessoa, { loading }] = useMutation(ADD_PESSOA, {
         onError: (err) => {
             console.log(err)          
@@ -57,15 +58,15 @@ const AddPessoa = ({ navigation }) => {
 
 
     const onSubmit = async ({nome, sobrenome, residenciaId}) => {
-        // const usuarioId = await getId()
-        // cadastrarPessoa({
-        //     variables: {
-        //         nome,
-        //         sobrenome,
-        //         residenciaId,
-        //         usuarioId
-        //     }
-        // })
+        const usuarioId = await getId()
+        cadastrarPessoa({
+            variables: {
+                nome,
+                sobrenome,
+                residenciaId,
+                usuarioId
+            }
+        })
         console.log(residenciaId)
         // console.log(await auth.getId())
     }
@@ -89,6 +90,7 @@ const AddPessoa = ({ navigation }) => {
                       setSelectedValue(e)
                       setValue('residenciaId', e)
                     }}
+                    optionalLabel='Selecione uma residência (opcional)'
                     data={dataResidencias?.getResidencias}
                     fonte={14}
                     color="#AFE9DE"
