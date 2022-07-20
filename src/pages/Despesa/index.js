@@ -5,7 +5,7 @@ import { Subtitle, TouchableText, SmallText, Title } from "../../style/texts"
 import IconDespesa from "../../assets/icon-despesa.svg";
 import { gql, useApolloClient, useMutation, useQuery } from "@apollo/client";
 
-const Despesa = () => {
+const Despesa = ({navigation}) => {
     return (
         <View style={{alignItems: 'center', justifyContent: 'center', flex: 1, paddingHorizontal: 30 }}>
             <IconDespesa/>
@@ -14,10 +14,12 @@ const Despesa = () => {
 
             <PressableButton
                 title='Residêncial'
+                onPress={()=> navigation.navigate('DespesaResidencial')}
             />
            <PressableButton
                 title='Pessoal'
                 style={{marginTop: '10%'}}
+                onPress={()=> navigation.navigate('DespesaPessoal')}
             />
         </View>
     )

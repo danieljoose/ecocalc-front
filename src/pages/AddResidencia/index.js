@@ -40,7 +40,6 @@ const AddResidencia = ({ navigation }) => {
                 usuarioId
             }
         })
-        console.log(nome)
         // console.log(await auth.getId())
     }
 
@@ -62,7 +61,7 @@ const AddResidencia = ({ navigation }) => {
 
             <PressableButton
                 onPress={handleSubmit(onSubmit)}
-                title='Entrar'
+                title='Cadastrar'
                 style={{marginTop: '10%'}}
             />
         </View>

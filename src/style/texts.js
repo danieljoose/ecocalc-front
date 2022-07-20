@@ -24,6 +24,12 @@ export const Title = styled.Text`
     color: #8D1288;
 `
 
+export const TitleLight = styled.Text`
+    font-family: Montserrat-Medium;
+    color: #49B8A4;
+    font-size: 17px;
+`
+
 export const SmallText = styled.Text`
     font-family: Montserrat-Medium;
     font-size: 12px;

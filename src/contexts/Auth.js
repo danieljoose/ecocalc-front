@@ -6,7 +6,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
     const key = "@ecocalc";
-    const REACT_APP_GRAPHQL_URL = 'http://192.168.15.9:8080/graphql';
+    const REACT_APP_GRAPHQL_URL = 'http://192.168.15.8:8080/graphql';
     
     const [ user, setUser ] = useState({
       auth: Boolean(getToken) ? Boolean(getToken) : true,
@@ -39,6 +39,7 @@ export const AuthProvider = ({children}) => {
 
     const login = async (token) => {
       const { id, email, nome } = jwt_decode(token);
+      console.log('aqui foi')
     
       await AsyncStorage.setItem(`${key}/token`, token);
       await AsyncStorage.setItem(`${key}/id`, JSON.stringify(id));
@@ -70,7 +71,7 @@ export const AuthProvider = ({children}) => {
         }),
       })
       .then(r => r.json())
-      .then(async data => console.log(await getId()))
+      .then(data => console.log(data))
       .catch(err => console.error(err));
     };
     

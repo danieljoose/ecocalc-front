@@ -12,7 +12,7 @@ const PickerCustom = ({ data, selectedValue, onChange, width, fonte, color, opti
         maxWidth: "100%",
         backgroundColor: color || 'white',
         marginVertical: 10,
-        shadowColor: "#000",
+        shadowColor: color ? "#fff" : "#000",
         shadowOffset: {
             width: 0,
             height: 12,
@@ -29,8 +29,10 @@ const PickerCustom = ({ data, selectedValue, onChange, width, fonte, color, opti
           placeHolder="opa"
           style={{  
             width: width || '100%', 
-            color: colors.thirdBlue,
-            fontSize: 20
+            color: selectedValue === null ? '#6c908a' : 'black',
+            fontSize: 20,
+            fontFamily: "Montserrat-Medium",
+            marginLeft: 5
            }}
            mode="dropdown"
           onValueChange={(itemValue, itemIndex) => onChange(itemValue)}
