@@ -37,7 +37,7 @@ const PickerCustom = ({ data, selectedValue, onChange, width, fonte, color, opti
            mode="dropdown"
           onValueChange={(itemValue, itemIndex) => onChange(itemValue)}
         >
-            {optionalLabel ? <Picker.Item style={{fontSize: fonte || 16}} label={optionalLabel} value={null}/> : null}
+            {optionalLabel ? <Picker.Item style={{fontSize: fonte || 12, color: 'orange', height: 10, width: 10, paddingBottom: -10, marginLeft: -10}} enabled={false} label={optionalLabel} value={null}/> : null}
             {data ? data.map((elem) =>(
                 <Picker.Item style={{fontSize: fonte || 16}} label={elem.nome} value={elem.id} key={elem.id} />
             )): null}

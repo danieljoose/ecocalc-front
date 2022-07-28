@@ -7,6 +7,7 @@ import { gql, useApolloClient, useMutation, useQuery } from "@apollo/client";
 import { Stack, IconButton } from "@react-native-material/core";
 import { PressableButton } from "../../style/button"
 import { Input } from "../../components/Input"
+import DatePickerCustom from '../../components/DatePicker';
 import PickerCustom from '../../components/PickerCustom';
 import AuthContext from '../../contexts/Auth';
 
@@ -20,9 +21,21 @@ const GET_PESSOAS = gql`
     }
 `
 
+
+const ADD_DESPESA = gql`
+    mutation($titulo: String!, $data: DateTime!, $valor: BigDecimal!, $residenciaId: ID, $pessoaId: ID, $usuarioId: ID!) {
+        cadastrarDespesa(titulo: $titulo, data: $data, valor: $valor, residenciaId: $residenciaId, pessoaId: $pessoaId, usuarioId: $usuarioId) {
+            id
+            titulo
+            valor
+            data
+        }
+    }
+`
+
 const DespesaPessoal = ({navigation}) => {
     const [selectedValue, setSelectedValue] = useState(null);
-    const { user } = useContext(AuthContext)
+    const { user, getId } = useContext(AuthContext)
     const { register, setValue, handleSubmit, watch } = useForm()
 
     const {data: dataPessoas, loading: loadingPessoas} = useQuery(GET_PESSOAS, {
@@ -31,15 +44,27 @@ const DespesaPessoal = ({navigation}) => {
           },
     })
 
+    const [addDespesa, { data: dataAddDespesa, loading: loadingAddDespesa }] = useMutation(ADD_DESPESA, {
+        onCompleted: (e) => {
+            navigation.navigate('AddDespesaSuccess')
+        },
+        onError: (e) =>{
+            console.log(e)
+        }
+    })
+
+
     const onSubmit = async ({titulo, data, valor, pessoaId}) => {
-        // const usuarioId = await getId()
-        // cadastrarResidencia({
-        //     variables: {
-        //         nome,
-        //         usuarioId
-        //     }
-        // })
-        console.log({titulo, data, valor, pessoaId})
+        const usuarioId = await getId()
+        addDespesa({
+            variables: {
+                titulo,
+                data,
+                valor,
+                pessoaId,
+                usuarioId
+            }
+        })
     }
 
     return (
@@ -54,8 +79,8 @@ const DespesaPessoal = ({navigation}) => {
 
             <Stack style={{width: '90%'}}>
                 <Input placeholder="Título" style={{marginTop: 25}} onChangeText={text => setValue('titulo', text)}/>
-                <Input placeholder="Data" style={{marginTop: 10, marginBottom: 30}} onChangeText={text => setValue('data', text)}/>     
-                <Input placeholder="Valor" style={{marginTop: 10, marginBottom: 30}} onChangeText={text => setValue('valor', text)}/>                
+                <DatePickerCustom setValue={text => setValue('data', text)} placeholder="Data"/>
+                <Input placeholder="Valor" style={{marginBottom: 30}} onChangeText={text => setValue('valor', text)}/>                
                 <PickerCustom
                     selectedValue={selectedValue}
                     onChange={(e)=>{

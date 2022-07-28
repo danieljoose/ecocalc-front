@@ -48,7 +48,7 @@ const DespesaResidencial = ({navigation}) => {
 
     const [addDespesa, { data: dataAddDespesa, loading: loadingAddDespesa }] = useMutation(ADD_DESPESA, {
         onCompleted: (e) => {
-            console.log(e)
+            navigation.navigate('AddDespesaSuccess')
         },
         onError: (e) =>{
             console.log(e)

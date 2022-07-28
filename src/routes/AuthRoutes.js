@@ -14,6 +14,7 @@ import DespesaPessoal from '../pages/Despesa/DespesaPessoal';
 import AddResidencia from '../pages/AddResidencia';
 import AddPessoa from '../pages/AddPessoa';
 import AddPessoaSuccess from '../pages/AddPessoa/AddPessoaSuccess';
+import AddDespesaSuccess from '../pages/Despesa/AddDespesaSuccess';
 import DrawerContent from '../pages/DrawerContent';
 import { useWindowDimensions } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -28,6 +29,7 @@ function AuthRoutes(){
       <Stack.Screen name="Despesa" component={Despesa}  />
       <Stack.Screen name="DespesaResidencial" component={DespesaResidencial} />
       <Stack.Screen name="DespesaPessoal" component={DespesaPessoal} />
+      <Stack.Screen name="AddDespesaSuccess" component={AddDespesaSuccess} />
     </Stack.Navigator>
   );
 
@@ -99,6 +101,7 @@ function AuthRoutes(){
                 drawerItemStyle: { display: 'none' }
               }}
             />
+
         </Drawer.Navigator>
     )
 }

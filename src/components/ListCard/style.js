@@ -26,7 +26,8 @@ export const Card = styled.View`
     width: 90%;
     height: 120px;
     border-radius: 10px;
-    margin-top: 15px;
+    margin-top: 5px;
+    margin-bottom: 10px;
 `
 
 export const FirstCard = styled.View`
@@ -34,18 +35,21 @@ export const FirstCard = styled.View`
     width: 100%;
     height: 120px;
     border-radius: 10px;
-    margin-top: 15px;
+    margin-top: 5px;
+    margin-bottom: 10px;
     
 `
 
 export const Percentage = styled.View`
     background: white;
-    width: 72px;
+    max-width: 100px;
+    min-width: 72px;
     height: 32px;
     border-radius: 10px;
     margin-bottom: 15px;
     margin-right: 15px;
     position: absolute;
+    padding-right: 2px;
     bottom: 0;
     right: 0;
     justify-content: center;
@@ -57,8 +61,8 @@ export const PercentageText = styled.Text`
     font-size: 16px;
     font-style: normal;
     color: ${props =>
-        props.color < 0 ? colors.red : colors.green}
-    margin-left: 1px;
+        props.color == 0 ? '#bababa' : props.color > 0 ? colors.red : colors.green}
+    margin-left: ${props => props.color < 10 && props.color > -9 ? '7px' : '1px'}
 `
 
 export const MoneyText = styled.Text`
