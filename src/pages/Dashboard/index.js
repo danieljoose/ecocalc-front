@@ -16,8 +16,6 @@ import AsyncStorage from '@react-native-community/async-storage'
 import AuthContext from '../../contexts/Auth';
 import ModalDropdown from 'react-native-modal-dropdown';
 import ListCard from '../../components/ListCard';
-import monthYear from '../../utils/monthYear'
-
 
 const GET_HISTORICO_MES = gql`
     query($usuarioId: ID, $residenciaId: ID, $pessoaId: ID) {

@@ -19,13 +19,10 @@ export const ArrowLeft = styled(Arrow)`
     margin-right: 15px;
     margin-top: 15px;
     right: 0;
-    fill: white;
 `
 
 export const Card = styled.View`
     background: ${colors.firstBlue};
-    width: 90%;
-    height: 120px;
     border-radius: 10px;
     margin-top: 5px;
     margin-bottom: 10px;
@@ -68,33 +65,50 @@ export const PercentageText = styled.Text`
 
 export const MoneyText = styled.Text`
     font-family: Montserrat-Bold;
-    font-size: 25px;
+    font-size: 30px;
     font-style: normal;
-    margin-top: 15px;
-    margin-left: 25px;
     color: white;
 `
 export const CentsText = styled.Text`
     font-family: Montserrat-Bold;
-    font-size: 15px;
+    font-size: 17px;
     font-style: normal;
-    margin-top: 25px;
+    margin-top: 14px;
     color: white;
 `
 export const DespesasText = styled.Text`
     font-family: Montserrat-Regular;
     font-size: 13px;
     font-style: normal;
-    margin-left: 25px;
     margin-top: 5px;
     color: white;
 `
 
 export const MonthText = styled.Text`
+    font-family: Montserrat-Bold;
+    font-size: 13px;
+    font-style: normal;
+    color: white;
+`
+
+export const TotalText = styled.Text`
     margin-top: 15px;
-    margin-left: 25px;
     font-family: Montserrat-Medium;
-    font-size: 15px;
+    font-size: 11px;
+    font-style: normal;
+    color: white;
+`
+
+export const NumText = styled.Text`
+    font-family: Montserrat-Medium;
+    font-size: 20px;
+    font-style: normal;
+    color: white;
+`
+
+export const NumTitle = styled.Text`
+    font-family: Montserrat-Medium;
+    font-size: 12px;
     font-style: normal;
     color: white;
 `

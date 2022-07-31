@@ -15,10 +15,14 @@ const meses = [
     {nome: 'Dezembro', abreviado: 'Dez'},
 ]
 
-const monthYear = (data, abreviado, diff) => {
+export const monthYear = (data, abreviado, diff) => {
     const date = new Date(moment(data).add(diff, 'months'))
     const mes = meses[date.getMonth()]
     const ano = date.getFullYear()
     return abreviado ? `${mes.abreviado}/${ano}` : `${mes.nome}/${ano}`;
 };
-export default monthYear;
+
+export const month = (month, abreviado) => {
+    const mes = meses[month-1]
+    return abreviado ? `${mes.abreviado}` : `${mes.nome}`;
+};

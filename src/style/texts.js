@@ -35,3 +35,16 @@ export const SmallText = styled.Text`
     font-size: 12px;
     color: #4F4F4F;
 `
+
+export const PickerText = styled.Text`
+    font-family: Montserrat-Bold;
+    font-size: 12px;
+    color: orange;
+`
+
+export const PessoaCardText = styled.Text`
+    font-family: Montserrat-Medium;
+    font-size: 11px;
+    color: #44776E;
+    max-width: 100px;
+`

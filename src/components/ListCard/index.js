@@ -4,7 +4,7 @@ import { Card, FirstCard, Percentage, MonthText, PercentageText, MoneyText, Cent
 import UpArrow from "../../assets/up_arrow.svg"
 import StaticSquare from "../../assets/rank-static.svg"
 import DownArrow from "../../assets/down_arrow.svg"
-import monthYear from '../../utils/monthYear'
+import {monthYear} from '../../utils/monthYear'
 
 const ListCard = ({dataMeses = []}) => {
 

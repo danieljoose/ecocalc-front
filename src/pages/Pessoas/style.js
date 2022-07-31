@@ -1,7 +1,8 @@
 import styled from 'styled-components/native';
 import colors from '../../style/colors';
 import {Text, View} from 'react-native';
-import Arrow from "../../assets/arrow_left.svg"
+import Arrow from "../../assets/arrow_left_green.svg"
+import Person from "../../assets/person-icon-green.svg"
 
 export const Subtitle = styled.Text`
     &&{
@@ -15,11 +16,13 @@ export const Subtitle = styled.Text`
 `;
 
 export const ArrowLeft = styled(Arrow)`
-    position: absolute;
-    margin-right: 15px;
-    margin-top: 15px;
+    margin-left: -10%;
     right: 0;
-    fill: white;
+`
+
+export const PersonIcon = styled(Person)`
+    margin-right: -10%;
+    right: 0;
 `
 
 export const Card = styled.View`
