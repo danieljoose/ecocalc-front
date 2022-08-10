@@ -70,7 +70,7 @@ const ListCard = ({dataMeses = [], selectedValue, navigation}) => {
                     
 
                     <Percentage>
-                        {percentage === 0 ? <StaticSquare/> : percentage > 0 ? <UpArrow/> : <DownArrow/>}
+                        {percentage == 0 ? <StaticSquare/> : percentage > 0 ? <UpArrow/> : <DownArrow/>}
                         <PercentageText color={percentage}>
                             {percentage}%
                         </PercentageText>

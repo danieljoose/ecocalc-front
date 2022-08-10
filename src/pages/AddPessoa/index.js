@@ -60,6 +60,10 @@ const AddPessoa = ({ navigation }) => {
       //   // console.log(selectedValue)
       // }
     })
+
+    useEffect(()=>{
+      refetch()
+  }, [])
     
     const [cadastrarPessoa, { loading }] = useMutation(ADD_PESSOA, {
         onError: (err) => {

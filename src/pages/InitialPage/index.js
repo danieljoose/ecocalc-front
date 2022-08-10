@@ -25,7 +25,7 @@ const InitialPage = ({ navigation }) => {
                 title='Cadastre-se'
                 variant="secondary"
             />
-
+{/* 
             <View style={{flexDirection: 'row'}}>                
                     <SmallText>
                         Esqueceu sua senha?
@@ -35,7 +35,7 @@ const InitialPage = ({ navigation }) => {
                         {` Clique aqui`}
                     </TouchableText>
                 </TouchableOpacity>
-            </View>
+            </View> */}
         </View>        
     )
 }

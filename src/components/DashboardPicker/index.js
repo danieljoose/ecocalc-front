@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import {Picker} from '@react-native-picker/picker';
 import { gql, useApolloClient, useMutation, useQuery } from "@apollo/client";
@@ -27,17 +27,22 @@ const GET_RESIDENCIAS = gql`
 const DashboardCustom = ({ data, selectedValue, onChange, width, fonte, color, optionalLabel }) => {
     const { user, getId } = useContext(AuthContext)
 
-    const {data: dataResidencias, loading: loadingResidencias} = useQuery(GET_RESIDENCIAS, {
+    const {data: dataResidencias, loading: loadingResidencias, refetch: refetchResidencia} = useQuery(GET_RESIDENCIAS, {
         variables: {
             usuarioId: user.id
             },
     })
 
-    const {data: dataPessoas, loading: loadingPessoas} = useQuery(GET_PESSOAS, {
+    const {data: dataPessoas, loading: loadingPessoas, refetch: refetchPessoas} = useQuery(GET_PESSOAS, {
         variables: {
             usuarioId: user.id
           },
     })
+
+    useEffect(()=>{
+        refetchPessoas()
+        refetchResidencia()
+    }, [])
     
     return (
       <View style={{
