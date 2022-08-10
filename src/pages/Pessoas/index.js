@@ -54,7 +54,7 @@ const Pessoas = () => {
     const [modalOpen, setModalOpen] = useState(false)
     const [selectedPessoa, setSelectedPessoa] = useState()
 
-    const {data: dataPessoas, loading: loadingPessoas} = useQuery(GET_PESSOAS, {
+    const {data: dataPessoas, loading: loadingPessoas, refetch: refetchPessoas} = useQuery(GET_PESSOAS, {
         variables: {
             usuarioId: user.id
           },
@@ -73,6 +73,10 @@ const Pessoas = () => {
         }
     })
     
+    useEffect(()=>{
+        refetchPessoas()
+    }, [])
+
     useEffect(()=>{
         refetch({
             usuarioId: user.id,

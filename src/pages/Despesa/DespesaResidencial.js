@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { View, Text, StyleSheet } from "react-native";
 import { useForm } from 'react-hook-form'
 import IconDespesa from "../../assets/icon-despesa.svg";
@@ -50,11 +50,15 @@ const DespesaResidencial = ({navigation}) => {
     const [valor, setValor] = useState()
     const { register, setValue, handleSubmit, watch } = useForm()
 
-    const {data: dataResidencias, loading: loadingResidencias} = useQuery(GET_RESIDENCIAS, {
+    const {data: dataResidencias, loading: loadingResidencias, refetch} = useQuery(GET_RESIDENCIAS, {
         variables: {
             usuarioId: user.id
           },
     })
+
+    useEffect(()=>{
+        refetch()
+    }, [])
 
     const [addDespesa, { data: dataAddDespesa, loading: loadingAddDespesa }] = useMutation(ADD_DESPESA, {
         onCompleted: (e) => {
@@ -67,7 +71,6 @@ const DespesaResidencial = ({navigation}) => {
 
     const onSubmit = async ({titulo, data, valor, residenciaId}) => {
         const usuarioId = await getId()
-        console.log("ue")
         addDespesa({
             variables: {
                 titulo,

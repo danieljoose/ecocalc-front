@@ -63,6 +63,10 @@ const AddResidencia = ({ navigation }) => {
         }
     })
 
+    useEffect(()=>{
+        refetch()
+    }, [])
+
     const onSubmit = async ({nome, pessoaId}) => {
         const usuarioId = await getId()
         cadastrarResidencia({

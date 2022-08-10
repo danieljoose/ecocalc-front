@@ -61,7 +61,7 @@ const Residencias = ({route}) => {
     const [selectResidencia, setSelectedResidencia] = useState()
     
 
-    const {data: dataResidencias, loading: loadingPessoas} = useQuery(GET_RESIDENCIAS, {
+    const {data: dataResidencias, loading: loadingPessoas, refetch: refetchResidencia} = useQuery(GET_RESIDENCIAS, {
         variables: {
             usuarioId: user.id
           },
@@ -86,6 +86,11 @@ const Residencias = ({route}) => {
             residenciaId: selectedValue  
         })
     }, [selectedValue])
+
+    useEffect(()=>{
+        refetchResidencia()
+    }, [])
+
 
     const getDespesasResidencia = (residenciaId) => {
         if(!residenciaId){
