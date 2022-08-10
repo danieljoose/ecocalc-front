@@ -5,15 +5,18 @@ import DashboardIcon from "../assets/dashboard.svg";
 import AddResidenciaIcon from "../assets/icon-add-residencia.svg";
 import AddPessoaIcon from "../assets/icon-add-pessoa.svg";
 import PessoaIcon from "../assets/person-icon.svg";
+import ResidenciaIcon from "../assets/casa-white.svg";
 import DespesaIcon from "../assets/despesa.svg";
 import Dashboard from '../pages/Dashboard';
 import Pessoas from '../pages/Pessoas';
+import Residencias from '../pages/Residencias';
 import Despesa from '../pages/Despesa';
 import DespesaResidencial from '../pages/Despesa/DespesaResidencial';
 import DespesaPessoal from '../pages/Despesa/DespesaPessoal';
 import AddResidencia from '../pages/AddResidencia';
 import AddPessoa from '../pages/AddPessoa';
 import AddPessoaSuccess from '../pages/AddPessoa/AddPessoaSuccess';
+import AddResidenciaSuccess from '../pages/AddResidencia/AddResidenciaSuccess';
 import AddDespesaSuccess from '../pages/Despesa/AddDespesaSuccess';
 import DrawerContent from '../pages/DrawerContent';
 import { useWindowDimensions } from 'react-native';
@@ -96,7 +99,20 @@ function AuthRoutes(){
                 drawerIcon: config => <PessoaIcon/>
               }}         
             /> 
+            <Drawer.Screen
+             name="Residências"
+             component={Residencias}   
+             options={{
+                drawerIcon: config => <ResidenciaIcon/>
+              }}         
+            /> 
             <Drawer.Screen name="Adicionar pessoa " component={AddPessoaSuccess}
+              options={{
+                drawerItemStyle: { display: 'none' }
+              }}
+            />
+
+            <Drawer.Screen name="Adicionar residência " component={AddResidenciaSuccess}
               options={{
                 drawerItemStyle: { display: 'none' }
               }}

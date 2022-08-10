@@ -51,7 +51,6 @@ const Dashboard = ({ navigation }) => {
     })
 
     useEffect(()=>{
-        console.log(selectedValue)
             if(selectedValue == 0){
                 refetch({
                     usuarioId: user.id,  
@@ -87,7 +86,7 @@ const Dashboard = ({ navigation }) => {
                 width={350}
             />
 
-            <ListCard dataMeses={dataHistorico?.getHistoricoMes} />
+            <ListCard navigation={navigation} selectedValue={selectedValue} dataMeses={dataHistorico?.getHistoricoMes} />
             
 
            

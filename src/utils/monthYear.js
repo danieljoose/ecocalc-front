@@ -24,5 +24,11 @@ export const monthYear = (data, abreviado, diff) => {
 
 export const month = (month, abreviado) => {
     const mes = meses[month-1]
-    return abreviado ? `${mes.abreviado}` : `${mes.nome}`;
+    return mes ? abreviado ? `${mes.abreviado}` : `${mes.nome}` : '-/-';
 };
+
+export const dayMonth = (data) => {
+    const date = new Date(data)
+    const mes = meses[date.getMonth()]
+    return `${date.getDate()} ${mes.abreviado}.`
+}

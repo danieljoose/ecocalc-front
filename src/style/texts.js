@@ -44,7 +44,7 @@ export const PickerText = styled.Text`
 
 export const PessoaCardText = styled.Text`
     font-family: Montserrat-Medium;
-    font-size: 11px;
+    font-size: 12px;
     color: #44776E;
     max-width: 100px;
 `

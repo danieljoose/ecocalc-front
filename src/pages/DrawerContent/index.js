@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
          color: 'white'
     },
     email: {
-        fontSize: 14,
+        fontSize: 14.0,
         marginTop: -2,
         color: 'white'
     },
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
     },
     caption: {
-      fontSize: 14,
+      fontSize: 14.0,
       lineHeight: 14,
     },
     row: {

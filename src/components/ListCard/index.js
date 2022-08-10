@@ -6,7 +6,7 @@ import StaticSquare from "../../assets/rank-static.svg"
 import DownArrow from "../../assets/down_arrow.svg"
 import {monthYear} from '../../utils/monthYear'
 
-const ListCard = ({dataMeses = []}) => {
+const ListCard = ({dataMeses = [], selectedValue, navigation}) => {
 
 
     const getPercentageChange = (oldNumber, newNumber) => {
@@ -17,6 +17,25 @@ const ListCard = ({dataMeses = []}) => {
         const valor = (decreaseValue / oldNumber) * -100
 
         return valor.toFixed(0);
+    }
+
+    const navigateCard = (mes, id) => {
+        if(id == 0){
+            navigation.navigate('Residências', {
+                mesSelected: mes,
+                idSelected: null,
+              })    
+        } else if(id.substring(0,3) == 'res'){
+            navigation.navigate('Residências', {
+                mesSelected: mes,
+                idSelected: Number(id.slice(4)) ,
+              }) 
+        } else if(selectedValue.substring(0,3) == 'pes'){
+            navigation.navigate('Pessoas', {
+                mesSelected: mes,
+                idSelected: Number(id.slice(4)) ,
+              })    
+        }        
     }
 
     const renderFirstCard = () => {
@@ -35,10 +54,10 @@ const ListCard = ({dataMeses = []}) => {
                         {monthYear(new Date(), true)}
                     </MonthText>
                     
-                    <ArrowLeft/>
+                    <ArrowLeft onPress={()=>navigateCard(0, selectedValue)}/>
                     <View style={{flexDirection: 'row'}}>
                        <MoneyText>
-                            R$ {data.length > 0 ? data[0]?.valorTotal.toFixed(0) : '0'}
+                            R$ {data.length > 0 ? parseInt(data[0]?.valorTotal) : '0'}
                         </MoneyText>
                         <CentsText>
                             ,{data.length > 0 ? data[0]?.valorTotal.toFixed(2).slice(-2) : '00'}
@@ -78,10 +97,10 @@ const ListCard = ({dataMeses = []}) => {
                     {monthYear(new Date(), true, -index - 1)}
                 </MonthText>
                 
-                <ArrowLeft/>
+                <ArrowLeft onPress={()=>navigateCard(i+1, selectedValue)}/>
                 <View style={{flexDirection: 'row'}}>
                     <MoneyText>
-                        R$ {data.length > 0 ? data[0]?.valorTotal.toFixed(0) : '0'}
+                        R$ {data.length > 0 ? parseInt(data[0]?.valorTotal) : '0'}
                     </MoneyText>
                     <CentsText>
                         ,{data.length > 0 ? data[0]?.valorTotal.toFixed(2).slice(-2) : '00'}

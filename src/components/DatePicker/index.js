@@ -31,7 +31,6 @@ const DatePickerCustom = ({setValue, placeholder}) => {
         backgroundColor: '#AFE9DE',
         borderRadius: 40,
         marginTop: 10,
-        marginBottom: 10
       }}>
         <ButtonCustom onPress={showDatePicker}>
             <Text style={{color: !date ? '#6c908a' : 'black'}}>{!date ? placeholder : formatDate(date)}</Text>

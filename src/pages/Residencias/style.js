@@ -3,7 +3,7 @@ import colors from '../../style/colors';
 import {Text, View} from 'react-native';
 import Arrow from "../../assets/arrow_left_green.svg"
 import Close from "../../assets/cross.svg"
-import Person from "../../assets/person-icon-green.svg"
+import Casa from "../../assets/casa.svg"
 
 export const Subtitle = styled.Text`
     &&{
@@ -25,7 +25,7 @@ export const CloseIcon = styled(Close)`
     right: 0;
 `
 
-export const PersonIcon = styled(Person)`
+export const PersonIcon = styled(Casa)`
     margin-right: -10%;
     right: 0;
 `

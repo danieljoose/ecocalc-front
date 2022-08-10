@@ -15,7 +15,7 @@ const AddPessoaSuccess = ({navigation}) =>{
             Clique no botão abaixo para criar uma nova despesa para essa nova pessoa.</Subtitle>           
 
             <PressableButton
-                onPress={console.log("sae")}
+                onPress={()=> navigation.navigate('Adicionar despesa')}
                 title='Nova despesa'
             />
 

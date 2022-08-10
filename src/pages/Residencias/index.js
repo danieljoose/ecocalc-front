@@ -2,16 +2,16 @@ import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, Modal, Pressable, ScrollView } from "react-native";
 import PickerCustom from '../../components/PickerCustom';
 import { Subtitle, PickerText, PessoaCardText, Title, } from "../../style/texts"
-import PessoaCard from '../../components/PessoaCard';
+import ResidenciaCard from '../../components/ResidenciaCard';
 import { ArrowLeft, PersonIcon, CloseIcon, ModalTitle, ModalName } from "./style";
 import AuthContext from '../../contexts/Auth';
 import {month, dayMonth} from '../../utils/monthYear'
 
 import { gql, useApolloClient, useMutation, useQuery } from "@apollo/client";
 
-const GET_PESSOAS = gql`
+const GET_RESIDENCIAS = gql`
     query($usuarioId: ID!) {
-        getPessoas(usuarioId: $usuarioId) {
+        getResidencias(usuarioId: $usuarioId) {
             id
             nome
         }
@@ -31,6 +31,10 @@ const GET_HISTORICO_MES = gql`
                 data
                 pessoa {
                     id
+                    nome
+                }
+                residencia{
+                    id
                 }
             }
             residencias {
@@ -46,15 +50,18 @@ const GET_HISTORICO_MES = gql`
 `
 
 
-const Pessoas = () => {
+const Residencias = ({route}) => {
     const { user, getId } = useContext(AuthContext)
+    // const { mesSelected, idSelected } = route.params;
+    // console.log('AI: ', idSelected, mesSelected)
     const [selectedValue, setSelectedValue] = useState(0);
     const [meses, setMeses] = useState([])
     const [mes, setMes] = useState(0)
     const [modalOpen, setModalOpen] = useState(false)
-    const [selectedPessoa, setSelectedPessoa] = useState()
+    const [selectResidencia, setSelectedResidencia] = useState()
+    
 
-    const {data: dataPessoas, loading: loadingPessoas} = useQuery(GET_PESSOAS, {
+    const {data: dataResidencias, loading: loadingPessoas} = useQuery(GET_RESIDENCIAS, {
         variables: {
             usuarioId: user.id
           },
@@ -65,7 +72,7 @@ const Pessoas = () => {
     const {data: dataHistorico, loading: loadingHistorico, refetch} = useQuery(GET_HISTORICO_MES, {
         variables: {
             usuarioId: user.id,
-            pessoaId: selectedValue
+            residenciaId: selectedValue
         },
         onCompleted: (e) =>{
             setMes(0)
@@ -76,28 +83,28 @@ const Pessoas = () => {
     useEffect(()=>{
         refetch({
             usuarioId: user.id,
-            pessoaId: selectedValue  
+            residenciaId: selectedValue  
         })
     }, [selectedValue])
 
-    const getDespesasPessoa = (pessoaId) => {
-        if(!pessoaId){
+    const getDespesasResidencia = (residenciaId) => {
+        if(!residenciaId){
             return
         }
-        return dataHistorico?.getHistoricoMes[mes].despesas.filter((e) => e.pessoa.id == pessoaId)
+        return dataHistorico?.getHistoricoMes[mes].despesas.filter((e) => e.residencia.id == residenciaId)
     }
 
-    const getDespesasTotal = (pessoaId) => {
-        if(!pessoaId){
+    const getDespesasTotal = (residenciaId) => {
+        if(!residenciaId){
             return
         }
-        const valor = dataHistorico?.getHistoricoMes[mes].despesas.filter((e) => e.pessoa.id == pessoaId).reduce((a, b) => a + b.valor, 0)
+        const valor = dataHistorico?.getHistoricoMes[mes].despesas.filter((e) => e.residencia.id == residenciaId).reduce((a, b) => a + b.valor, 0)
         return `R$ ${parseInt(valor)},${valor.toFixed(2).slice(-2)}`
     }
 
-    const renderPessoa = () => {
+    const renderResidencia = () => {
         return (
-            dataHistorico?.getHistoricoMes.length > 0 ? (dataHistorico?.getHistoricoMes[mes]?.pessoas.map((e)=> 
+            dataHistorico?.getHistoricoMes.length > 0 ? (dataHistorico?.getHistoricoMes[mes]?.residencias?.map((e)=> 
                 <View key={e.id} style={{
                     backgroundColor: 'white', 
                     marginTop: 15,
@@ -125,14 +132,14 @@ const Pessoas = () => {
                                 {e.nome}
                             </PessoaCardText>
                             <PessoaCardText style={{alignItems: 'center', maxWidth: '15%', marginRight: '10%'}}>
-                                {getDespesasPessoa(e?.id).length}
+                                {getDespesasResidencia(e?.id).length}
                             </PessoaCardText>
                             <PessoaCardText style={{maxWidth: '25%'}}>
                                 {getDespesasTotal(e?.id)}
                             </PessoaCardText>
                         </View>
                         
-                        <ArrowLeft onPress={()=> {setSelectedPessoa(e); setModalOpen(true)}}/>
+                        <ArrowLeft onPress={()=> {setSelectedResidencia(e); setModalOpen(true)}}/>
                         
                     </View>
                         
@@ -149,7 +156,7 @@ const Pessoas = () => {
     }
 
     const renderModal = () => {
-        const despesas = getDespesasPessoa(selectedPessoa?.id) || []
+        const despesas = getDespesasResidencia(selectResidencia?.id) || []
 
         return (
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', width: 100, color: 'red'}}>
@@ -165,25 +172,25 @@ const Pessoas = () => {
                                 <CloseIcon onPress={() => setModalOpen(false)}/>
                                 <View style={{alignItems:'center'}}>
                                     <ModalTitle>{meses[mes]?.nome}</ModalTitle>
-                                    <ModalName>{selectedPessoa?.nome}</ModalName>
+                                    <ModalName>{selectResidencia?.nome}</ModalName>
                                 </View>                                
                             </View>
                             <ScrollView style={{padding: 20, maxHeight: '80%'}}>
                                     {despesas?.map((e, index)=> 
                                         <View key={index} style={{marginBottom: 15, flex: 1,flexDirection: 'row'}}>
-                                            <View style={{ flex: 3}}>
+                                            <View style={{ flex: 4}}>
                                                 <PickerText >
                                                 {dayMonth(e.data)}
                                             </PickerText>
                                             </View>
                                             
-                                            <View style={{ flex: 8}}>
+                                            <View style={{ flex: 11}}>
                                                 <PessoaCardText >
-                                                {e.titulo}
+                                                {e.titulo}{e.pessoa ? ` (${e.pessoa.nome})` : null}
                                             </PessoaCardText>
                                             </View>
                                             
-                                            <View style={{flex: 5, alignItems: 'flex-end'}}>
+                                            <View style={{flex: 6, alignItems: 'flex-end'}}>
                                                 <PessoaCardText  >
                                                 R$ {parseInt(e.valor)},{e.valor.toFixed(2).slice(-2)}
                                             </PessoaCardText>
@@ -205,11 +212,11 @@ const Pessoas = () => {
         <View style={{alignItems: 'center', flex: 1, paddingHorizontal: 30 }}>
             <View>
                 <PickerText style={{marginLeft: 10, marginBottom: -5}}> 
-                    Pessoa(s)
+                    Residência(s)
                 </PickerText>
                 <PickerCustom
-                    data={dataPessoas?.getPessoas}
-                    all="Todas as pessoas"
+                    data={dataResidencias?.getResidencias}
+                    all="Todas as residências"
                     selectedValue={selectedValue}
                     onChange={setSelectedValue}
                     width={350}
@@ -229,7 +236,7 @@ const Pessoas = () => {
             </View>
             
             
-            <PessoaCard data={dataHistorico?.getHistoricoMes[mes] || []} />
+            <ResidenciaCard data={dataHistorico?.getHistoricoMes[mes] || []} />
 
             <View style={{flexDirection: 'row', justifyContent: 'space-between', width: '75%'}}>
                 <PickerText style={{marginTop: 'auto'}}> 
@@ -243,11 +250,11 @@ const Pessoas = () => {
                 </PickerText>
             </View>
 
-            {renderPessoa()}
+            {renderResidencia()}
             {renderModal()}
 
         </View>
     )
 }
 
-export default Pessoas
+export default Residencias

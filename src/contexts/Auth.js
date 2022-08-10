@@ -39,8 +39,6 @@ export const AuthProvider = ({children}) => {
 
     const login = async (token) => {
       const { id, email, nome } = jwt_decode(token);
-      console.log('aqui foi')
-    
       await AsyncStorage.setItem(`${key}/token`, token);
       await AsyncStorage.setItem(`${key}/id`, JSON.stringify(id));
     

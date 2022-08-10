@@ -10,6 +10,8 @@ import { Input } from "../../components/Input"
 import { PressableButton } from "../../style/button"
 import { Subtitle, TouchableText, SmallText, Title } from "../../style/texts"
 import AuthContext from '../../contexts/Auth';
+import * as yup from "yup";
+import { Formik } from 'formik';
 
 const ADD_PESSOA = gql`
   mutation($nome: String!, $sobrenome: String!, $residenciaId: ID, $usuarioId: ID!) {
@@ -29,12 +31,26 @@ const GET_RESIDENCIA = gql`
   }
 `;
 
+
+
 const AddPessoa = ({ navigation }) => {
     const { logout, user, signed, credentialsUser, getId  } = useContext(AuthContext)
     const { register, setValue, handleSubmit, watch } = useForm()
     const [selectedValue, setSelectedValue] = useState(null);
 
-    const { data: dataResidencias, loading: loadingResidencias } = useQuery(GET_RESIDENCIA, {
+    const validation = yup
+      .object({
+          nome: yup
+          .string()
+          .required('Informe o nome desta pessoa'),
+          sobrenome: yup
+          .string()
+          .required('Informe o sobrenome desta pessoa'),
+          residenciaId: yup.string().notRequired(),   
+          
+      })
+
+    const { data: dataResidencias, loading: loadingResidencias, refetch } = useQuery(GET_RESIDENCIA, {
       variables: {
         usuarioId: user.id
       },
@@ -44,15 +60,14 @@ const AddPessoa = ({ navigation }) => {
       //   // console.log(selectedValue)
       // }
     })
-
-
     
     const [cadastrarPessoa, { loading }] = useMutation(ADD_PESSOA, {
         onError: (err) => {
             console.log(err)          
         },
         onCompleted: (e) => {
-          navigation.navigate('AddPessoaSuccess')
+          refetch()
+          navigation.navigate('Adicionar pessoa ')
         },
       });
 
@@ -67,7 +82,6 @@ const AddPessoa = ({ navigation }) => {
                 usuarioId
             }
         })
-        console.log(residenciaId)
         // console.log(await auth.getId())
     }
 
@@ -80,31 +94,59 @@ const AddPessoa = ({ navigation }) => {
             Cadastre uma nova pessoa para gerenciar
             e visualizar seus gastos mensais.</Subtitle>           
 
-            <Stack style={{width: '90%'}}>
-                <Input placeholder="Nome" style={{marginTop: '15%'}} onChangeText={text => setValue('nome', text)}/>
-                <Input placeholder="Sobrenome"  style={{marginTop: "3%"}} onChangeText={text => setValue('sobrenome', text)}/>
-                {/* <Input placeholder="Residência (opcional)" secureTextEntry={true} style={{marginTop: "3%", marginBottom: '15%'}} onChangeText={text => setValue('residenciaId', text)}/>      */}
-                <PickerCustom
-                    selectedValue={selectedValue}
-                    onChange={(e)=>{
-                      setSelectedValue(e)
-                      setValue('residenciaId', e)
-                    }}
-                    optionalLabel='Selecione uma residência (opcional)'
-                    data={dataResidencias?.getResidencias}
-                    fonte={14}
-                    color="#AFE9DE"
-                />           
-            </Stack>
-           
 
-            <PressableButton
-                onPress={handleSubmit(onSubmit)}
-                title='Entrar'
-                style={{marginTop: '10%'}}
-            />
+            <Formik
+                initialValues={{ nome: '', sobrenome: '', residenciaId: '' }}
+                onSubmit={values => onSubmit(values)}
+                validationSchema={validation}
+            >
+                {({ handleChange, handleBlur, handleSubmit, setFieldValue, values, errors, touched }) => (
+                     <>
+                      <Stack style={{width: '90%'}}>
+                          <Input placeholder="Nome" style={{marginTop: '15%'}} onChangeText={text => setFieldValue('nome', text)}/>
+                          {errors.nome && touched.nome ? (
+                                <Text style={[styles.errors]}>{errors.nome}</Text>
+                            ) : null}
+                          <Input placeholder="Sobrenome"  style={{marginTop: "3%"}} onChangeText={text => setFieldValue('sobrenome', text)}/>
+                          {errors.sobrenome && touched.sobrenome ? (
+                                <Text style={[styles.errors]}>{errors.sobrenome}</Text>
+                            ) : null}
+                          {/* <Input placeholder="Residência (opcional)" secureTextEntry={true} style={{marginTop: "3%", marginBottom: '15%'}} onChangeText={text => setValue('residenciaId', text)}/>      */}
+                          <PickerCustom
+                              selectedValue={selectedValue}
+                              onChange={(e)=>{
+                                setSelectedValue(e)
+                                setFieldValue('residenciaId', e)
+                              }}
+                              optionalLabel='Selecione uma residência (opcional)'
+                              data={dataResidencias?.getResidencias}
+                              fonte={14}
+                              color="#AFE9DE"
+                          />           
+                      </Stack>
+                    
+
+                      <PressableButton
+                          onPress={handleSubmit}
+                          title='Entrar'
+                          style={{marginTop: '10%'}}
+                      />
+                    </>
+                )}
+              </Formik>
         </View>
     )
 }
 
 export default AddPessoa
+
+const styles = StyleSheet.create({
+  errors: {
+      marginLeft: 15,
+      marginBottom: 15,
+      color: 'red',
+      fontSize: 11,
+      fontFamily: "Montserrat-Medium"
+  },
+
+})

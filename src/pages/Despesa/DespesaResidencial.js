@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { useForm } from 'react-hook-form'
 import IconDespesa from "../../assets/icon-despesa.svg";
 import { Subtitle, TitleLight, SmallText, Title , Pressable, TouchableWithoutFeedback} from "../../style/texts"
@@ -7,9 +7,11 @@ import { gql, useApolloClient, useMutation, useQuery } from "@apollo/client";
 import { Stack, IconButton } from "@react-native-material/core";
 import { PressableButton } from "../../style/button"
 import { Input } from "../../components/Input"
+import MaskInput, { createNumberMask } from 'react-native-mask-input';
 import DatePickerCustom from '../../components/DatePicker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-
+import { despesaResidenciaValidation } from './validation';
+import { Formik } from 'formik';
 import PickerCustom from '../../components/PickerCustom';
 import AuthContext from '../../contexts/Auth';
 
@@ -35,9 +37,17 @@ const ADD_DESPESA = gql`
 `
 
 const DespesaResidencial = ({navigation}) => {
+    const moneyMask = createNumberMask({
+        prefix: ['R', '$', ' '],
+        delimiter: '.',
+        separator: ',',
+        precision: 2,
+      })
+      
     const [selectedValue, setSelectedValue] = useState(null);
     const { user, getId } = useContext(AuthContext)
     const [date, setDate] = useState(new Date());
+    const [valor, setValor] = useState()
     const { register, setValue, handleSubmit, watch } = useForm()
 
     const {data: dataResidencias, loading: loadingResidencias} = useQuery(GET_RESIDENCIAS, {
@@ -57,6 +67,7 @@ const DespesaResidencial = ({navigation}) => {
 
     const onSubmit = async ({titulo, data, valor, residenciaId}) => {
         const usuarioId = await getId()
+        console.log("ue")
         addDespesa({
             variables: {
                 titulo,
@@ -78,33 +89,72 @@ const DespesaResidencial = ({navigation}) => {
                 Residêncial
             </TitleLight>
 
-            <Stack style={{width: '90%'}}>
-                <Input placeholder="Título" style={{marginTop: 25}} onChangeText={text => setValue('titulo', text)}/>
-                <DatePickerCustom setValue={text => setValue('data', text)} placeholder="Data"/>
-                <Input placeholder="Valor" onChangeText={text => setValue('valor', text)}/>
-               
-                <PickerCustom
-                    selectedValue={selectedValue}
-                    onChange={(e)=>{
-                      setSelectedValue(e)
-                      setValue('residenciaId', e)
-                    }}
-                    optionalLabel='Residência'
-                    data={dataResidencias?.getResidencias}
-                    fonte={14}
-                    color="#AFE9DE"
-                />   
-            </Stack>
+            <Formik
+                initialValues={{ titulo: '', data: '', valor: '', residenciaId: '' }}
+                onSubmit={values => onSubmit(values)}
+                validationSchema={despesaResidenciaValidation}
+            >
+                {({ handleChange, handleBlur, handleSubmit, setFieldValue, values, errors, touched }) => (
+                     <>
+                        <Stack style={{width: '90%'}}>
+                            <Input placeholder="Título" style={{marginTop: 25}} onChangeText={handleChange('titulo')} onBlur={handleBlur('titulo')} value={values.titulo}/>
+                            {errors.titulo && touched.titulo ? (
+                                <Text style={styles.errors}>{errors.titulo}</Text>
+                            ) : null}
+                            <DatePickerCustom  setValue={text => setFieldValue('data', text)} placeholder="Data" />
+                            {errors.data && touched.data ? (
+                                <Text style={[styles.errors]}>{errors.data}</Text>
+                            ) : null}
+                            <MaskInput
+                                style={{backgroundColor: '#AFE9DE',fontFamily: 'Montserrat-Medium', borderRadius: 30, paddingLeft: 20, marginTop: 10}}
+                                value={valor}
+                                mask={moneyMask}
+                                onChangeText={(masked, unmasked) => {
+                                    setValor(unmasked)
+                                    setFieldValue('valor', masked.replace('.', '').replace(',', '.').replace('R$ ', ''))
+                                }}
+                                />
+                             {errors.valor && touched.valor ? (
+                                <Text style={[styles.errors, {marginBottom: 10}]}>{errors.valor}</Text>
+                            ) : null}
+                            <PickerCustom
+                                selectedValue={selectedValue}
+                                onChange={(e)=>{
+                                setSelectedValue(e)
+                                setFieldValue('residenciaId', e)
+                                }}
+                                optionalLabel='Residência'
+                                data={dataResidencias?.getResidencias}
+                                fonte={14}
+                                color="#AFE9DE"
+                            />   
+                             {errors.residenciaId && touched.residenciaId ? (
+                                <Text style={[styles.errors, {marginTop: -10}]}>{errors.residenciaId}</Text>
+                            ) : null}
+                        </Stack>
 
 
-            <PressableButton
-                    onPress={handleSubmit(onSubmit)}
-                    title='Adicionar'                    
-                />
-
+                        <PressableButton
+                                onPress={handleSubmit}
+                                title='Adicionar'                    
+                            />
+                    </>
+                )}
+            </Formik>
 
         </View>
     )
 }
 
 export default DespesaResidencial
+
+const styles = StyleSheet.create({
+    errors: {
+        marginLeft: 15,
+        marginBottom: 15,
+        color: 'red',
+        fontSize: 11,
+        fontFamily: "Montserrat-Medium"
+    },
+
+ })

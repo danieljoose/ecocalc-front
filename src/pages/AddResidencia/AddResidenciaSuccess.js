@@ -15,12 +15,12 @@ const AddResidenciaSuccess = ({navigation}) =>{
             Clique no botão abaixo para criar uma nova despesa para essa residência ou cadastre uma nova pessoa para alocar a sua nova residência.</Subtitle>           
 
             <PressableButton
-                onPress={console.log("sae")}
+                onPress={()=> navigation.navigate('Adicionar despesa')}
                 title='Nova despesa'
             />
 
             <PressableButton
-                onPress={console.log("sae")}
+                onPress={()=> navigation.navigate('Adicionar pessoa')}
                 title='Nova pessoa'
             />
 

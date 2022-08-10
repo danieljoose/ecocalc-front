@@ -1,7 +1,7 @@
-import React , { useMemo, useEffect, useContext } from 'react'
+import React , { useMemo, useState, useEffect, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import styled, { css } from '@emotion/native'
-import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import EcoCalc from "../../assets/ecocalc.svg";
 import Pig from "../../assets/pig.svg";
 import AuthContext from '../../contexts/Auth';
@@ -10,6 +10,9 @@ import { gql, useApolloClient, useMutation } from "@apollo/client";
 import { Stack, IconButton } from "@react-native-material/core";
 import { Input } from "../../components/Input"
 import { PressableButton } from "../../style/button"
+import { loginValidation } from './validation';
+import { Formik } from 'formik';
+
 
 const SIGN_IN = gql`
   mutation ($login: String!, $senha: String!) {
@@ -21,36 +24,18 @@ const SIGN_IN = gql`
 
 const Login = ({ navigation }) => {
     const client = useApolloClient();
+    const [badLogin, setBadLogin] = useState(false)
+
     const { login, isLogged } = useContext(AuthContext)
-    const { register, setValue, handleSubmit } = useForm()
-    console.log('a')
     const [signIn, { loading }] = useMutation(SIGN_IN, {
         onError: (err) => {
           if (/bad_credentials/.exec(err.message)) {
-            // enqueueSnackbar("Usuário ou senha incorretos", {
-            //   variant: "error",
-            //   anchorOrigin: {
-            //     vertical: "top",
-            //     horizontal: "center",
-            //   },
-            // });
+            setBadLogin(true)
             console.log('erro')
           }
         },
         onCompleted: async (e) => {
-            console.log('ue')
-
-
-          // navigation.navigate('Dashboard')
-            await login(e.signin.token)
-        
-        
-        //   const redirectPath = query.get("redirectPath");
-        //   if (redirectPath) {
-        //     replace(redirectPath);
-        //   } else {
-        //     push("/");
-        //   }
+            await login(e.signin.token)    
         },
       });
 
@@ -72,16 +57,34 @@ const Login = ({ navigation }) => {
                 {`Faça seu login para ter\n controle das suas despesas`}
             </Subtitle>
 
-            <Stack style={{width: '75%'}}>
-                <Input placeholder="E-mail" style={{marginTop: 30}} onChangeText={text => setValue('email', text)}/>
-                <Input placeholder="Senha" secureTextEntry={true} style={{marginTop: 10, marginBottom: 30}} onChangeText={text => setValue('senha', text)}/>                
-            </Stack>
-
-            <PressableButton
-                onPress={handleSubmit(onSubmit)}
-                title='Entrar'
-                style={{marginTop: '20px'}}
-            />
+            <Formik
+                initialValues={{ email: '', senha: '' }}
+                onSubmit={values => onSubmit(values)}
+                validationSchema={loginValidation}
+            >
+                {({ handleChange, handleBlur, handleSubmit, setFieldValue, values, errors, touched }) => (
+                     <>
+                        <Stack style={{width: '75%'}}>
+                            <Input placeholder="E-mail" style={{marginTop: 30}} onChangeText={(e)=>{setFieldValue('email', e); badLogin && setBadLogin(false)}} onBlur={handleBlur('email')} value={values.nome}/>
+                            {errors.email && touched.email ? (
+                                <Text style={styles.errors}>{errors.email}</Text>
+                            ) : null}
+                            <Input placeholder="Senha" secureTextEntry={true} style={{marginTop: 10, marginBottom: 30}} onChangeText={(e)=>{setFieldValue('senha', e); badLogin && setBadLogin(false)}} onBlur={handleBlur('senha')} value={values.senha}/>      
+                            {errors.senha && touched.senha ? (
+                                <Text style={styles.errors}>{errors.senha}</Text>
+                            ) : badLogin ? (
+                                <Text style={styles.errors}>O e-mail ou senha está incorreto</Text>
+                            ): null}          
+                        </Stack>
+                        
+                        <PressableButton
+                            onPress={handleSubmit}
+                            title='Entrar'
+                            style={{marginTop: '20px'}}
+                        />
+                    </>
+                )}
+            </Formik>
 
             <View style={{flexDirection: 'row'}}>                
                     <SmallText>
@@ -110,4 +113,12 @@ const styles = StyleSheet.create({
        borderColor: '#7a42f4',
        borderWidth: 1
     },
+    errors: {
+        marginLeft: 15,
+        marginBottom: 15,
+        color: 'red',
+        fontSize: 11,
+        fontFamily: "Montserrat-Medium"
+    },
+
  })
