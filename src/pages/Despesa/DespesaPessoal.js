@@ -101,7 +101,7 @@ const DespesaPessoal = ({navigation}) => {
                 {({ handleChange, handleBlur, handleSubmit, setFieldValue, values, errors, touched }) => (
                     <>
                     <Stack style={{width: '90%'}}>
-                        <Input placeholder="Título" style={{marginTop: 25}} onChangeText={text => setFieldValue('titulo', text)}/>
+                        <Input  placeholderTextColor="#6c908a" placeholder="Título" style={{marginTop: 25}} onChangeText={text => setFieldValue('titulo', text)}/>
                         {errors.titulo && touched.titulo ? (
                                 <Text style={styles.errors}>{errors.titulo}</Text>
                             ) : null}

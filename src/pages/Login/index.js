@@ -65,11 +65,11 @@ const Login = ({ navigation }) => {
                 {({ handleChange, handleBlur, handleSubmit, setFieldValue, values, errors, touched }) => (
                      <>
                         <Stack style={{width: '75%'}}>
-                            <Input placeholder="E-mail" style={{marginTop: 30}} onChangeText={(e)=>{setFieldValue('email', e); badLogin && setBadLogin(false)}} onBlur={handleBlur('email')} value={values.nome}/>
+                            <Input placeholderTextColor="#6c908a" placeholder="E-mail" style={{marginTop: 30}} onChangeText={(e)=>{setFieldValue('email', e); badLogin && setBadLogin(false)}} onBlur={handleBlur('email')} value={values.nome}/>
                             {errors.email && touched.email ? (
                                 <Text style={styles.errors}>{errors.email}</Text>
                             ) : null}
-                            <Input placeholder="Senha" secureTextEntry={true} style={{marginTop: 10, marginBottom: 30}} onChangeText={(e)=>{setFieldValue('senha', e); badLogin && setBadLogin(false)}} onBlur={handleBlur('senha')} value={values.senha}/>      
+                            <Input placeholderTextColor="#6c908a" placeholder="Senha" secureTextEntry={true} style={{marginTop: 10, marginBottom: 30}} onChangeText={(e)=>{setFieldValue('senha', e); badLogin && setBadLogin(false)}} onBlur={handleBlur('senha')} value={values.senha}/>      
                             {errors.senha && touched.senha ? (
                                 <Text style={styles.errors}>{errors.senha}</Text>
                             ) : badLogin ? (
