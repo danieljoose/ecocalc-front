@@ -90,7 +90,7 @@ const Login = ({ navigation }) => {
                     <SmallText>
                         Ainda não possui uma conta?
                     </SmallText>
-                <TouchableOpacity onPress={async ()=>console.log(await isLogged())}> 
+                <TouchableOpacity onPress={()=>navigation.navigate('Cadastro')}> 
                     <TouchableText>
                         {` Cadastre-se`}
                     </TouchableText>
