@@ -99,21 +99,21 @@ const Cadastro = ({ navigation }) =>{
                     <>
                     
                     <Stack style={{width: '75%'}}>
-                        <Input placeholder="Nome" style={{marginTop: 30}} onChangeText={handleChange('nome')} onBlur={handleBlur('nome')} value={values.nome}/>
+                        <Input placeholder="Nome" placeholderTextColor="#6c908a" style={{marginTop: 30}} onChangeText={handleChange('nome')} onBlur={handleBlur('nome')} value={values.nome}/>
                         {errors.nome && touched.nome ? (
                             <Text style={styles.errors}>{errors.nome}</Text>
                         ) : null}
-                        <Input placeholder="Sobrenome" style={{marginTop: 10, marginBottom: 30}} onChangeText={handleChange('sobrenome')} onBlur={handleBlur('sobrenome')} value={values.sobrenome}/>  
+                        <Input placeholder="Sobrenome" placeholderTextColor="#6c908a" style={{marginTop: 10, marginBottom: 30}} onChangeText={handleChange('sobrenome')} onBlur={handleBlur('sobrenome')} value={values.sobrenome}/>  
                         {errors.sobrenome && touched.sobrenome ? (
                             <Text style={styles.errors}>{errors.sobrenome}</Text>
                         ) : null}   
-                        <Input placeholder="E-mail" style={{marginTop: 10, marginBottom: 30}} onChangeText={(e)=>{setFieldValue('email', e); emailAlreadyUse && setEmailAlreadyUse(false)}} onBlur={handleBlur('email')} value={values.email}/> 
+                        <Input placeholder="E-mail" placeholderTextColor="#6c908a" style={{marginTop: 10, marginBottom: 30}} onChangeText={(e)=>{setFieldValue('email', e); emailAlreadyUse && setEmailAlreadyUse(false)}} onBlur={handleBlur('email')} value={values.email}/> 
                         {errors.email && touched.email ? (
                             <Text style={styles.errors}>{errors.email}</Text>
                         ) : emailAlreadyUse ? (
                             <Text style={styles.errors}>E-mail digitado já está em uso</Text>
                         ): null}
-                        <Input placeholder="Senha" secureTextEntry={true} style={{marginTop: 10, marginBottom: 30}} onChangeText={handleChange('senha')} onBlur={handleBlur('senha')} value={values.senha}/>            
+                        <Input placeholder="Senha" placeholderTextColor="#6c908a" secureTextEntry={true} style={{marginTop: 10, marginBottom: 30}} onChangeText={handleChange('senha')} onBlur={handleBlur('senha')} value={values.senha}/>            
                         {errors.senha && touched.senha ? (
                             <Text style={styles.errors}>{errors.senha}</Text>
                         ) : null}

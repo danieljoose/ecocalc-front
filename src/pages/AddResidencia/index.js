@@ -97,7 +97,7 @@ const AddResidencia = ({ navigation }) => {
                 {({ handleChange, handleBlur, handleSubmit, setFieldValue, values, errors, touched }) => (
                      <>
                         <Stack style={{width: '90%'}}>
-                            <Input placeholder="Nome" style={{marginTop: '15%'}} defaultValue="" onChangeText={text => setFieldValue('nome', text)}/>
+                            <Input placeholder="Nome" placeholderTextColor="#6c908a" style={{marginTop: '15%'}} defaultValue="" onChangeText={text => setFieldValue('nome', text)}/>
                             {errors.nome && touched.nome ? (
                                 <Text style={[styles.errors]}>{errors.nome}</Text>
                             ) : null}

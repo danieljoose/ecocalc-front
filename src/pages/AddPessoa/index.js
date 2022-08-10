@@ -107,11 +107,11 @@ const AddPessoa = ({ navigation }) => {
                 {({ handleChange, handleBlur, handleSubmit, setFieldValue, values, errors, touched }) => (
                      <>
                       <Stack style={{width: '90%'}}>
-                          <Input placeholder="Nome" style={{marginTop: '15%'}} onChangeText={text => setFieldValue('nome', text)}/>
+                          <Input  placeholder="Nome"  placeholderTextColor="#6c908a" style={{marginTop: '15%'}} onChangeText={text => setFieldValue('nome', text)}/>
                           {errors.nome && touched.nome ? (
                                 <Text style={[styles.errors]}>{errors.nome}</Text>
                             ) : null}
-                          <Input placeholder="Sobrenome"  style={{marginTop: "3%"}} onChangeText={text => setFieldValue('sobrenome', text)}/>
+                          <Input placeholder="Sobrenome" placeholderTextColor="#6c908a" style={{marginTop: "3%"}} onChangeText={text => setFieldValue('sobrenome', text)}/>
                           {errors.sobrenome && touched.sobrenome ? (
                                 <Text style={[styles.errors]}>{errors.sobrenome}</Text>
                             ) : null}

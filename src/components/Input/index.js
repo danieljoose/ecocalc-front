@@ -6,6 +6,7 @@ export const Input = styled.TextInput`
     font-family: Montserrat-Medium;
     border-radius: 30px;
     padding-left: 20px;
+    color: black;  
 `
 
 export const ButtonCustom = styled.Pressable`
