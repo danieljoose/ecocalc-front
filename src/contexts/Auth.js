@@ -6,7 +6,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
     const key = "@ecocalc";
-    const REACT_APP_GRAPHQL_URL = 'http://192.168.15.8:8080/graphql';
+    const REACT_APP_GRAPHQL_URL = 'http://ecocalc-api.herokuapp.com/graphql';
     
     const [ user, setUser ] = useState({
       auth: Boolean(getToken) ? Boolean(getToken) : true,
