@@ -30,7 +30,7 @@ const errorLink = onError(({ graphqlErrors, networkError}) => {
 
 const link = from([
   errorLink,
-  new HttpLink({uri: "http://192.168.15.8:8080/graphql"})
+  new HttpLink({uri: "https://ecocalc-api.herokuapp.com/graphql"})
 ])
 
 
