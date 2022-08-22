@@ -1,11 +1,11 @@
 ![img](https://i.ibb.co/DKffHsh/logo.png)
 
-#### Este é o repósitorio do front-end do EcoCalc.
+## Este é o repositório do front-end do EcoCalc.
 
 **Desenvolvedor:** 
 Daniel José di Navaronne
 
-**Repósitorio do back-end:** 
+**Repositório do back-end:** 
 https://github.com/danieljoose/ecocalc-back
 
 **Download do APK:** 
