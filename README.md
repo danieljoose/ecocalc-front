@@ -4,7 +4,7 @@
 
 ## Imagens do aplicativo.
 
-![img](https://i.ibb.co/j4GHH0V/Whats-App-Image-2022-09-05-at-14-23-09.jpg)
+![img](https://i.ibb.co/j4GHH0V/Whats-App-Image-2022-09-05-at-14-23-09.jpg?w=100)
 
 **Desenvolvedor:** 
 Daniel José di Navaronne
