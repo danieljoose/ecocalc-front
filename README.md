@@ -4,7 +4,7 @@
 
 
 **Desenvolvedor:** 
-Daniel José di Navaronne
+Daniel José di Navaronne G. Leite
 
 **Repositório do back-end:** 
 https://github.com/danieljoose/ecocalc-back
